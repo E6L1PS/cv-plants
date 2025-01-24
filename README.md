@@ -42,11 +42,10 @@
 cd ./plants_examples/
 ```  
 ## Скриншоты:
-![img.png](plants_examples%2Fscreens%2Fimg.png)
-![img_1.png](plants_examples%2Fscreens%2Fimg_1.png)
-![img_2.png](plants_examples%2Fscreens%2Fimg_2.png)
-![img_3.png](plants_examples%2Fscreens%2Fimg_3.png)
-![img_4.png](plants_examples%2Fscreens%2Fimg_4.png)
+![sc1.png](plants_examples%2Fscreens%2Fsc1.png)
+![sc2.png](plants_examples%2Fscreens%2Fsc2.png)
+![sc3.png](plants_examples%2Fscreens%2Fsc3.png)
+![sc4.png](plants_examples%2Fscreens%2Fsc4.png)
 
 ## Модель
 
@@ -54,6 +53,6 @@ cd ./plants_examples/
 
 В качестве архитектуры был взят MobileNet в схеме Encoder-Decoder. Модель обучалась на кросс-энтропии на задачу сегменации (или же многоклассовой классификации пикселей)
 
-Оценивалась модель с помощью метрики mIoU (mean Intersection over Union). На валидационной выборке получили качество mIoU = 0.76.
+Оценивалась модель с помощью метрики mIoU (mean Intersection over Union). На валидационной выборке получили качество mIoU = 0.82.
 
 Графики обучения модели можно найти в [cv_plants.ipynb](cv_plants.ipynb).
