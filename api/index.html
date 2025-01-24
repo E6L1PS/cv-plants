@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сегментация изображения</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        input[type="file"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h2 {
+            text-align: center;
+            color: #555;
+        }
+
+        #resultImage {
+            display: block;
+            margin: 20px auto;
+            max-width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>Загрузка изображения для сегментации</h1>
+
+    <!-- Форма загрузки файла и выбора режима -->
+    <form id="uploadForm" enctype="multipart/form-data">
+        <label for="file">Выберите изображение:</label>
+        <input type="file" id="file" name="file" required><br>
+
+        <label for="mode">Режим:</label>
+        <select id="mode" name="mode">
+            <option value="boxes">Боксы</option>
+            <option value="mask">Маска</option>
+        </select><br>
+
+        <button type="submit">Загрузить и сегментировать</button>
+    </form>
+
+    <h2>Результат:</h2>
+    <img id="resultImage" style="display:none;"/>
+</div>
+
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const formData = new FormData();
+        formData.append('file', document.getElementById('file').files[0]);
+        formData.append('mode', document.getElementById('mode').value);
+
+        const response = await fetch('/segment', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const resultImage = document.getElementById('resultImage');
+            resultImage.src = '/results/' + data.saved_path.split('/').pop() + '?' + new Date().getTime();
+            resultImage.style.display = 'block';
+        } else {
+            alert('Произошла ошибка при обработке запроса.');
+        }
+    });
+</script>
+</body>
+</html>

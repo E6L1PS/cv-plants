@@ -1,0 +1,9 @@
+fastapi==0.109.1
+torch==2.5.1
+torchvision==0.20.1
+opencv_python==4.10.0.84
+pillow==11.0.0
+python-multipart==0.0.20
+uvicorn==0.22.0
+numpy==2.2.0
+segmentation-models-pytorch==0.3.4
